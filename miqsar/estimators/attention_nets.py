@@ -1,5 +1,5 @@
 import torch
-from torch import nn
+from torch import nn, nonzero
 from torch.nn import Sequential, Linear, Sigmoid, Softmax, Tanh
 from torch.nn.functional import softmax
 from .base_nets import BaseRegressor, BaseClassifier, BaseNet
@@ -21,7 +21,8 @@ class WeightsDropout(nn.Module):
         w_new = w.clone()
         w_new[d0, :, d1] = 0
         #
-        d1 = [i[0].nonzero().flatten().tolist() for i in w_new]
+#        d1 = [i[0].nonzero().flatten().tolist() for i in w_new]
+        d1 = [nonzero(i[0]).flatten().tolist() for i in w_new]
         w_new[d0, :, d1] = Softmax(dim=1)(w_new[d0, :, d1])
         return w_new
 

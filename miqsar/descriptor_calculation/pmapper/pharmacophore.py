@@ -92,7 +92,7 @@ class PharmacophoreBase():
                 self.__g.add_edge(i, j, dist=dist, pdist=PharmacophoreBase.__primes_edge[dist])
         else:
             for i, j in combinations(self.__g.nodes(), 2):
-                dist = self.__dist(self.__g.node[i]['xyz'], self.__g.node[j]['xyz'], bin_step)
+                dist = self.__dist(self.__g.nodes[i]['xyz'], self.__g.nodes[j]['xyz'], bin_step)
                 self.__g.add_edge(i, j, dist=dist, pdist=PharmacophoreBase.__primes_edge[dist])
 
     def __dist(self, coord1, coord2, bin_step=None):
@@ -141,7 +141,7 @@ class PharmacophoreBase():
 
     def __get_canon_feature_signatures2(self, ids):
 
-        feature_labels = dict(zip(ids, (self.__g.node[i]['label'] for i in ids)))
+        feature_labels = dict(zip(ids, (self.__g.nodes[i]['label'] for i in ids)))
         feature_signatures = []
         for i in ids:
             sign = []
