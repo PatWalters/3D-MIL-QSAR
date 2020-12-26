@@ -37,7 +37,10 @@ for dataset_file in sorted(glob("pw_test/*.smi")):
 #    split_dict = pickle.load(open("splits.pickle","rb"))
     split_list = split_dict[dataset_name.replace(".smi","")][split_to_use]
 
-    shutil.rmtree('descriptors')
+    try:
+        shutil.rmtree('descriptors')
+    except FileNotFoundError:
+        pass
     os.mkdir('descriptors')
     path = os.path.join('descriptors', 'tmp')
     os.mkdir(path)
